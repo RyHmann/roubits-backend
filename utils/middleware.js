@@ -9,7 +9,7 @@ const requestLogger = (request, response, next) => {
     logger.info('Body:  ', request.body)
     logger.info('---')
     next()
-  }
+}
 
 const tokenExtractor = (request, response, next) => {
     const authorization = request.get('authorization')
@@ -29,10 +29,10 @@ const userExtractor = async (request, response, next) => {
         const user = await User.findById(decodedToken.id)
         if (user) {
             request.user = user
-        } 
+        }
         next()
     } catch (error) {
-        response.status(500).send({ error: 'invalid token'})
+        response.status(500).send({ error: 'invalid token' })
     }
 }
 

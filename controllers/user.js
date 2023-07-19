@@ -1,5 +1,4 @@
 const User = require('../models/user')
-const Routine = require('../models/routine')
 const usersRouter = require('express').Router()
 const bcrypt = require('bcrypt')
 
@@ -10,7 +9,7 @@ usersRouter.get('/', async (request, response) => {
 
 usersRouter.get('/:id/routines', async (request, response) => {
     try {
-        const user = await User.findById(request.params.id).populate('routines', {name: 1, habits: 1})
+        const user = await User.findById(request.params.id).populate('routines', { name: 1, habits: 1 })
         response.json(user.routines)
     } catch (error) {
         console.log(error.message)

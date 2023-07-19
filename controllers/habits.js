@@ -15,9 +15,9 @@ habitsRouter.post('/', async (request, response) => {
     } catch (error) {
         console.log(error)
     }
-    
+
     if (!routine) {
-        response.status(409).json({ error: 'a habit must be attached to a valid routine'})
+        response.status(409).json({ error: 'a habit must be attached to a valid routine' })
     } else {
         const habit = new Habit({
             name: body.name,

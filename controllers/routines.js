@@ -4,7 +4,7 @@ const userExtractor = require('../utils/middleware').userExtractor
 const routinesRouter = require('express').Router()
 
 routinesRouter.get('/', async (request, response) => {
-    const routines = await Routine.find({}).populate('habits', {name: 1, value: 1})
+    const routines = await Routine.find({}).populate('habits', { name: 1, value: 1 })
     console.log('routines', routines)
     response.json(routines)
 })
@@ -20,7 +20,7 @@ routinesRouter.post('/', userExtractor, async (request, response) => {
         })
         const savedRoutine = await newRoutine.save()
         user.routines = user.routines.concat(savedRoutine._id)
-        const savedUser = await user.save()
+        await user.save()
         response.status(201).json(savedRoutine)
     } else {
         response.status(400).json({ error: 'could not find user to assign routine to' })

@@ -7,7 +7,7 @@ const habitSchema = new mongoose.Schema({
     routine: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Routine'
-    } 
+    }
 })
 
 habitSchema.set('toJSON', {
