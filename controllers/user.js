@@ -9,12 +9,17 @@ usersRouter.get('/', async (request, response) => {
 
 usersRouter.get('/:id/routines', async (request, response) => {
     try {
-        const user = await User.findById(request.params.id).populate('routines', { name: 1, habits: 1 })
+        const user = await User.findById(request.params.id).populate({
+            path: 'routines',
+            populate: {
+                path: 'habits',
+                model: 'Habit'
+            }
+        })
         response.json(user.routines)
     } catch (error) {
         console.log(error.message)
     }
-
 })
 
 usersRouter.post('/', async (request, response) => {
