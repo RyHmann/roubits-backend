@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const habitSchema = new mongoose.Schema({
+const rewardSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true
@@ -9,14 +9,15 @@ const habitSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    isPositive: Boolean,
-    routine: {
+    user: {
+        id: String,
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Routine'
+        ref: 'User',
+        required: true
     }
 })
 
-habitSchema.set('toJSON', {
+rewardSchema.set('toJSON', {
     transform: (document, returnedObject) => {
         returnedObject.id = returnedObject._id.toString()
         delete returnedObject._id
@@ -24,4 +25,4 @@ habitSchema.set('toJSON', {
     }
 })
 
-module.exports = mongoose.model('Habit', habitSchema)
+module.exports = mongoose.model('Reward', rewardSchema)

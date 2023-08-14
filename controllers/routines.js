@@ -25,14 +25,12 @@ routinesRouter.get('/:id/habits', async (request, response) => {
 
 routinesRouter.post('/', userExtractor, async (request, response) => {
     const body = request.body
-    console.log(body)
     const user = await User.findById(request.user)
     if (user) {
         const newRoutine = new Routine ({
             name: body.name,
             user: user.id
         })
-        console.log(newRoutine)
         const savedRoutine = await newRoutine.save()
         user.routines = user.routines.concat(savedRoutine._id)
         await user.save()

@@ -1,20 +1,27 @@
 const Ledger = require('../models/ledger')
 const ledgersRouter = require('express').Router()
+const userExtractor = require('../utils/middleware').userExtractor
+const User = require('../models/user')
 
 ledgersRouter.get('/', async (request, response) => {
     const ledgers = await Ledger.find({})
     response.json(ledgers)
 })
 
-ledgersRouter.post('/', async (request, response) => {
-    const body = request.body
-
-    const newLedger = new Ledger({
-        value: body.value,
-    })
-    newLedger.lastUpdated = new Date()
-    const savedLedger = await newLedger.save()
-    response.status(201).json(savedLedger)
+ledgersRouter.post('/', userExtractor, async (request, response) => {
+    const user = await User.findById(request.user)
+    if (user) {
+        const newLedger = new Ledger({
+            value: 0,
+            lastTransaction: null,
+            user: user.id
+        })
+        newLedger.lastUpdated = new Date()
+        const savedLedger = await newLedger.save()
+        response.status(201).json(savedLedger)
+    } else {
+        response.status(400).json({ error: 'could not find user to assign ledger to' })
+    }
 })
 
 ledgersRouter.delete('/:id', async (request, response) => {

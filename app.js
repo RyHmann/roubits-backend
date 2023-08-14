@@ -7,6 +7,7 @@ const routinesRouter = require('./controllers/routines')
 const ledgersRouter = require('./controllers/ledgers')
 const usersRouter = require('./controllers/user')
 const loginRouter = require('./controllers/login')
+const rewardRouter = require('./controllers/rewards')
 const middleware = require('./utils/middleware')
 const logger = require('./utils/logger')
 
@@ -32,6 +33,7 @@ app.use('/api/routines', routinesRouter)
 app.use('/api/ledgers', ledgersRouter)
 app.use('/api/users', usersRouter)
 app.use('/api/login', loginRouter)
+app.use('/api/rewards', rewardRouter)
 
 app.use(middleware.unknownEndpoint)
 

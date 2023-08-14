@@ -1,14 +1,25 @@
 const mongoose = require('mongoose')
 
 const userSchema = new mongoose.Schema({
-    username: String,
-    user: String,
+    name: String,
+    username: {
+        type: String,
+        required: true,
+        unique: true
+    },
     passwordHash: String,
     routines: [
         {
             id: String,
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Routine'
+        }
+    ],
+    rewards: [
+        {
+            id: String,
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Reward'
         }
     ]
 })

@@ -6,6 +6,10 @@ const ledgerSchema = new mongoose.Schema({
     lastTransaction: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Habit'
+    },
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
     }
 })
 
