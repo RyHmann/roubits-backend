@@ -8,6 +8,8 @@ const ledgersRouter = require('./controllers/ledgers')
 const usersRouter = require('./controllers/user')
 const loginRouter = require('./controllers/login')
 const rewardRouter = require('./controllers/rewards')
+const balanceRouter = require('./controllers/balance')
+const depositRouter = require('./controllers/deposit')
 const middleware = require('./utils/middleware')
 const logger = require('./utils/logger')
 
@@ -34,6 +36,8 @@ app.use('/api/ledgers', ledgersRouter)
 app.use('/api/users', usersRouter)
 app.use('/api/login', loginRouter)
 app.use('/api/rewards', rewardRouter)
+app.use('/api/balance', balanceRouter)
+app.use('/api/deposit', depositRouter)
 
 app.use(middleware.unknownEndpoint)
 

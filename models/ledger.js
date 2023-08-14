@@ -4,8 +4,8 @@ const ledgerSchema = new mongoose.Schema({
     value: Number,
     lastUpdated: Date,
     lastTransaction: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Habit'
+        id: String,
+        amount: Number
     },
     user: {
         type: mongoose.Schema.Types.ObjectId,
