@@ -1,5 +1,6 @@
 const depositRouter = require('express').Router()
 const Ledger = require('../models/ledger')
+const Habit = require('../models/habit')
 const userExtractor = require('../utils/middleware').userExtractor
 const User = require('../models/user')
 
@@ -9,13 +10,20 @@ depositRouter.post('/:id', userExtractor, async (request, response) => {
     if (!user) {
         return response.status(403)
     } else {
-        const newDeposit = {
-            id: body.id,
-            amount: body.value
+
+        const habit = await Habit.findById(body.lastTransaction)
+        if (!habit)
+        {
+            return response.status(404).json({ error: 'could not find habit' })
         }
+        const newDeposit = {
+            id: habit.id,
+            value: habit.value
+        }
+
         const previousLedger = await Ledger.findOne({ user: user.id }).sort({ lastUpdated: -1 }).limit(1)
         const previousBalance = previousLedger?.value || 0
-        const newValue = previousBalance + newDeposit.amount
+        const newValue = previousBalance + newDeposit.value
 
         const newLedgerItem = new Ledger({
             value: newValue,
