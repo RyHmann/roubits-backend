@@ -8,7 +8,7 @@ balanceRouter.get('/:id', userExtractor, async (request, response) => {
     if (!user) {
         return response.status(403)
     } else {
-        const latestLedger = await Ledger.find({ user: user.id }).sort({ lastUpdated: -1 }).limit(1)
+        const latestLedger = await Ledger.findOne({ user: user.id }).sort({ lastUpdated: -1 }).limit(1)
         response.json(latestLedger)
     }
 })
