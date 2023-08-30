@@ -6,12 +6,12 @@ const User = require('../models/user')
 
 depositRouter.post('/:id', userExtractor, async (request, response) => {
     const body = request.body
-    const user = await User.findById(request.user)
+    const user = await User.findById(request.params.id)
     if (!user) {
         return response.status(403)
     } else {
 
-        const habit = await Habit.findById(body.lastTransaction)
+        const habit = await Habit.findById(body.id)
         if (!habit)
         {
             return response.status(404).json({ error: 'could not find habit' })
